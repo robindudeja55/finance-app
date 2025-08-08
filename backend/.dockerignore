@@ -1,0 +1,8 @@
+pycache/
+.pyc
+.git
+.vscode
+.env
+.env.
+tests
+docs

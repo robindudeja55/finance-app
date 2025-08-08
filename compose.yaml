@@ -8,7 +8,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -21,12 +21,32 @@ services:
     image: redis:7.2-alpine
     container_name: finance_redis
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 25
+
+  web:
+    build:
+      context: ./backend
+    container_name: finance_web
+    command: bash -lc "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+      - ./.env:/app/.env:ro
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
 
 volumes:
   mysql_data:
