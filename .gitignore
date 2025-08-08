@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+env/
+venv/
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+
+# Editor
+.vscode/
+.idea/
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Docker
+*.log
