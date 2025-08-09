@@ -9,24 +9,35 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
 from pathlib import Path
+import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env(DJANGO_DEBUG=(bool, False))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="unsafe-dev")
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
+
+TIME_ZONE = env("TIME_ZONE", default="UTC")
+USE_TZ = True
+
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t6mzh1si8+v4xq)49hi(d3diz!!lz^tn3=-p603*)o2c+ybokf'
+SECRET_KEY = 'django-insecure-r0h_&ap68&vpj7@66n84#9+#4!ok8-ha)g#=-6miu&jmv1k(3x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -74,10 +85,15 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+"default": {
+"ENGINE": "django.db.backends.mysql",
+"NAME": env("MYSQL_DATABASE"),
+"USER": env("MYSQL_USER"),
+"PASSWORD": env("MYSQL_PASSWORD"),
+"HOST": env("MYSQL_HOST", default="db"),
+"PORT": env("MYSQL_PORT", default="3306"),
+"OPTIONS": {"charset": "utf8mb4"},
+}
 }
 
 

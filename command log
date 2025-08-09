@@ -67,3 +67,24 @@ Then commit and push the log:
 git add docs/command-log.md .env.example
 git commit -m "docs: add consolidated command log (through Django welcome)"
 git push
+
+
+
+What we finished today
+
+Private repo set up and synced with GitHub.
+Docker Compose for MySQL 8 + Redis (with healthchecks).
+Web service image (Python 3.12) and Django project created inside Docker.
+Django dev server runs (welcome page visible).
+Command log saved in docs.
+Plan for tomorrow
+
+Wire Django to MySQL via django-environ (settings.py).
+Run migrations and create a superuser.
+Add /healthz endpoint.
+Add Celery + Redis integration and a ping task.
+Update compose with a worker service.
+Commit and update docs along the way.
+Quick “resume” commands for tomorrow
+
+Start stack:
