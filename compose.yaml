@@ -28,6 +28,22 @@ services:
       timeout: 3s
       retries: 25
 
+  worker:
+    build:
+      context: ./backend
+    container_name: finance_worker
+    command: celery -A config worker -l info
+    volumes:
+      - ./backend:/app
+      - ./.env:/app/.env:ro
+    env_file:
+      - ./.env
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
   web:
     build:
       context: ./backend
