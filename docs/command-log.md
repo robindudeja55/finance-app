@@ -1,0 +1,90 @@
+Finance App — Command Log (up to Django welcome page)
+Date: 8 august 2025 (01:50 AM)
+All commands run from repo root unless noted.
+Git / Repo
+git init -b main # init repo (if not already)
+git add . # stage files
+git commit -m "chore: init repo with README and .gitignore"
+git remote add origin https://github.com/<your-username>/finance-app.git
+git push -u origin main # push to GitHub
+
+Privacy (make repo private)
+via GitHub UI: Settings → General → Change visibility → Private
+or CLI:
+gh auth login
+gh repo edit <your-username>/finance-app --visibility private
+Project structure
+mkdir -p backend docs scripts # folders for code/docs/scripts
+
+Environment (local only; do NOT commit .env)
+Create/edit .env with DB creds (no spaces around =)
+MYSQL_DATABASE=financedb
+MYSQL_USER=robin
+MYSQL_PASSWORD=robinroby10
+MYSQL_ROOT_PASSWORD=robinroby10
+cp .env .env.example # make a shareable template (edit placeholders before commit)
+
+Docker Compose (infra: MySQL + Redis)
+docker compose config # validate compose.yaml
+docker compose up -d # start db + redis (and later web)
+docker compose ps # see running containers
+docker compose logs db --tail=50 # db logs (last 50 lines)
+docker compose logs redis --tail=50 # redis logs
+
+Quick checks
+docker exec -it finance_redis redis-cli ping # expect PONG
+docker compose exec db sh -lc 'mysql -uroot -p"$MYSQL_ROOT_PASSWORD" -e "SELECT VERSION();"' # MySQL ok
+docker compose exec db sh -lc 'mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SHOW DATABASES;"' # see DB list
+
+Optional reset if needed (DESTROYS data):
+docker compose down -v && docker compose up -d
+Backend image + Django project (inside Docker)
+Files created in backend/: requirements.txt, .dockerignore, Dockerfile
+docker compose build web # build Python app image
+docker compose run --rm web django-admin startproject config . # generate Django project (note the trailing dot)
+docker compose up -d web # start dev server
+docker compose logs -f web # follow web logs
+
+If you generated project without the trailing dot by mistake:
+docker compose stop web
+rm -rf backend/config
+docker compose run --rm web django-admin startproject config .
+docker compose up -d web
+Handy checks
+ls -la backend # verify manage.py and config/ exist
+open http://localhost:8000 # Django welcome page
+
+Typical Git flow (small commits)
+git status -s # what changed
+git add -A # stage all changes (including new files)
+git commit -m "feat: add web service and Django project"
+git push
+
+Tip: git commit -am "msg" stages only tracked files (not new ones)
+EOF
+
+Then commit and push the log:
+git add docs/command-log.md .env.example
+git commit -m "docs: add consolidated command log (through Django welcome)"
+git push
+
+
+
+What we finished today
+
+Private repo set up and synced with GitHub.
+Docker Compose for MySQL 8 + Redis (with healthchecks).
+Web service image (Python 3.12) and Django project created inside Docker.
+Django dev server runs (welcome page visible).
+Command log saved in docs.
+Plan for tomorrow
+
+Wire Django to MySQL via django-environ (settings.py).
+Run migrations and create a superuser.
+Add /healthz endpoint.
+Add Celery + Redis integration and a ping task.
+Update compose with a worker service.
+Commit and update docs along the way.
+Quick “resume” commands for tomorrow
+
+Start stack:
