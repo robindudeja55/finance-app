@@ -18,6 +18,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DJANGO_DEBUG=(bool, False))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
+MEDIA_URL = "/media/"
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="unsafe-dev")
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
@@ -42,6 +48,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 INSTALLED_APPS = [
+    'imports',
     'core',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -97,6 +104,7 @@ DATABASES = {
 }
 }
 
+DATABASES["default"]["ENGINE"] = "django.db.backends.mysql"
 
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://redis:6379/1")
 CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND", default="redis://redis:6379/2")
