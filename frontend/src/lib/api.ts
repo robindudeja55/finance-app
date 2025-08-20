@@ -46,3 +46,10 @@ export async function getPriceSeries(symbol: string, days = 60): Promise<SeriesJ
   }
   return response.json();
 }
+
+
+export async function getSymbols(): Promise<{ symbols: string[] }> {
+  const r = await fetch(`${API}/api/symbols`, { cache: "no-store" });
+  if (!r.ok) throw new Error(`Symbols fetch failed: ${r.status}`);
+  return r.json();
+}

@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
     path("api/prediction", views.prediction_latest, name="prediction-latest"),
     path("api/price-series", views.price_series, name="price-series"),
+    path("api/symbols", views.symbols, name="symbols"), 
 ]

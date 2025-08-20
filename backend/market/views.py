@@ -2,6 +2,7 @@ from datetime import date, timedelta
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from .models import Instrument, PriceOHLCV, Prediction
+from django.views.decorators.http import require_GET
 
 @require_GET
 def prediction_latest(request):
@@ -42,3 +43,12 @@ def price_series(request):
 
     data = [{"date": row["date"].isoformat(), "close": float(row["close"])} for row in qs]
     return JsonResponse({"symbol": symbol, "series": data})
+
+
+
+@require_GET
+def symbols(request):
+    syms = list(Instrument.objects.order_by("symbol").values_list("symbol", flat=True))
+    if not syms:
+        syms = [s.strip().upper() for s in os.environ.get("SYMBOLS", "AAPL").split(",") if s.strip()]
+    return JsonResponse({"symbols": syms})
