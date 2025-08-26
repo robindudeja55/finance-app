@@ -24,7 +24,7 @@ class PriceOHLCV(models.Model):
         indexes = [models.Index(fields=["instrument", "date"])]
         ordering = ["-date"]
 
-
+#new
 class NewsArticle(models.Model):
     instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name="news")
     title = models.CharField(max_length=512)
