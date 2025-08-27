@@ -3,7 +3,7 @@ import sys
 import django
 import importlib
 from pathlib import Path
-
+#git
 # Make sure Python can import config (which lives in /app/config)
 BASE_DIR = Path(__file__).resolve().parent.parent  # /app
 if str(BASE_DIR) not in sys.path:
