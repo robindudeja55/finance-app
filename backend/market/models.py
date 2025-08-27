@@ -23,7 +23,7 @@ class PriceOHLCV(models.Model):
         unique_together = (("instrument", "date"),)
         indexes = [models.Index(fields=["instrument", "date"])]
         ordering = ["-date"]
-
+#neww
 #new
 class NewsArticle(models.Model):
     instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name="news")
