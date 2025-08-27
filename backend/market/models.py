@@ -8,7 +8,6 @@ class Instrument(models.Model):
         return self.symbol
 
 
-#new
 
 class PriceOHLCV(models.Model):
     instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name="prices")
