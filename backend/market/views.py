@@ -45,7 +45,7 @@ def price_series(request):
     return JsonResponse({"symbol": symbol, "series": data})
 
 
-
+###3
 @require_GET
 def symbols(request):
     syms = list(Instrument.objects.order_by("symbol").values_list("symbol", flat=True))
