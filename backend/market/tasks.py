@@ -85,7 +85,7 @@ def normalize_ohlc(df: pd.DataFrame) -> pd.DataFrame:
 # Task Scheduling Helpers
 # ---------------------------  
 
-#test
+
 def get_symbols():
     s = os.environ.get("SYMBOLS", "AAPL")
     return [x.strip().upper() for x in s.split(",") if x.strip()]
