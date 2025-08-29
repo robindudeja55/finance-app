@@ -52,3 +52,4 @@ def symbols(request):
         syms = [s.strip().upper() for s in os.environ.get("SYMBOLS", "AAPL").split(",") if s.strip()]
     return JsonResponse({"symbols": syms})
 
+###--------------------------------------------
