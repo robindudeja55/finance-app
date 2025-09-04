@@ -40,7 +40,7 @@ class NewsArticle(models.Model):
         ]
         ordering = ["-published_at"]
 
-
+##
 class FeatureDaily(models.Model):
     instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE, related_name="features")
     date = models.DateField()
