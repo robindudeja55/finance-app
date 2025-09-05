@@ -113,7 +113,7 @@ def scheduled_predict_all():
         predict_next_day.delay(sym)
     return f"enqueued predict for {get_symbols()}"
 
-
+#3
 
 # ---------------------------
 # Task 1: Fetch Prices
