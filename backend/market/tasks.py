@@ -114,7 +114,6 @@ def scheduled_predict_all():
     return f"enqueued predict for {get_symbols()}"
 
 ##
-##
 # ---------------------------
 # Task 1: Fetch Prices
 # ---------------------------
