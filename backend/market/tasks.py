@@ -411,4 +411,4 @@ def run_full_pipeline(symbol: str = "AAPL"):
     return f"Pipeline started for {symbol}, task_id={result.id}"
 
 
-#####3
+###
