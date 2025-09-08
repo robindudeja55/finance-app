@@ -409,3 +409,6 @@ def run_full_pipeline(symbol: str = "AAPL"):
     )
     result = workflow.apply_async()
     return f"Pipeline started for {symbol}, task_id={result.id}"
+
+
+#####3
