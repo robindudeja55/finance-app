@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  web:
+    image: ghcr.io/OWNER/REPO/backend:latest 
+    env_file: .env                            
+    command: gunicorn -w 3 -b 0.0.0.0:8000 config.wsgi:application
+    depends_on:
+      - redis
+    networks: [ app ]
+    expose: [ "8000" ]                       
+
+  worker:
+    image: ghcr.io/OWNER/REPO/backend:latest
+    env_file: .env
+    command: celery -A config worker -l info
+    depends_on:
+      - redis
+    networks: [ app ]
+
+  beat:
+    image: ghcr.io/OWNER/REPO/backend:latest
+    env_file: .env
+    command: celery -A config beat -l info
+    volumes:
+      - ./backend/celerybeat-schedule:/app/celerybeat-schedule
+    depends_on:
+      - redis
+    networks: [ app ]
+
+  redis:
+    image: redis:7-alpine
+    networks: [ app ]
+    expose: [ "6379" ]                       
+
+  frontend:
+    image: ghcr.io/OWNER/REPO/frontend:latest
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_BASE=https://YOUR_DOMAIN     
+      - API_BASE_INTERNAL=http://web:8000             
+    depends_on:
+      - web
+    networks: [ app ]
+    expose: [ "3000" ]                       
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+      - frontend
+    networks: [ app ]
+
+networks:
+  app: {}
+
+volumes:
+  caddy_data: {}
+  caddy_config: {}

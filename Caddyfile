@@ -1,0 +1,14 @@
+:80 {
+    encode zstd gzip   # Enable compression for faster load times
+
+    # Routes that should go to the Django backend
+    @api path /api/* /admin/* /static/* /media/*
+    handle @api {
+        reverse_proxy web:8000
+    }
+
+    # Everything else (default) goes to Next.js frontend
+    handle {
+        reverse_proxy frontend:3000
+    }
+}
