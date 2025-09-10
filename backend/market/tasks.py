@@ -53,7 +53,7 @@ def safe_decimal(val):
     except (InvalidOperation, ValueError, TypeError):
         return None
 
-###################
+#################
 def normalize_ohlc(df: pd.DataFrame) -> pd.DataFrame:
     # Flatten MultiIndex columns
     if isinstance(df.columns, pd.MultiIndex):
