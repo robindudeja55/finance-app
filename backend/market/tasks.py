@@ -60,7 +60,7 @@ def normalize_ohlc(df: pd.DataFrame) -> pd.DataFrame:
         df.columns = [c[-1] if isinstance(c, tuple) else c for c in df.columns]
 
     lower = {c.lower(): c for c in df.columns}
-######## --- I
+######## ---
     def pick(*names):
         for n in names:
             if n.lower() in lower:
