@@ -66,7 +66,7 @@ def normalize_ohlc(df: pd.DataFrame) -> pd.DataFrame:
             if n.lower() in lower:
                 return lower[n.lower()]
         return None
-###########
+##########
     o = pick("Open")
     h = pick("High")
     l = pick("Low")
