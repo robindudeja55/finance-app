@@ -80,7 +80,7 @@ def normalize_ohlc(df: pd.DataFrame) -> pd.DataFrame:
 
     df = df.rename(columns={o: "Open", h: "High", l: "Low", c: "Close", v: "Volume"})
     return df[["Open", "High", "Low", "Close", "Volume"]]
-####
+##
 # ---------------------------
 # Task Scheduling Helpers
 # ---------------------------  
