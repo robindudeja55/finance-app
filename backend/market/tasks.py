@@ -71,7 +71,7 @@ def normalize_ohlc(df: pd.DataFrame) -> pd.DataFrame:
     h = pick("High")
     l = pick("Low")
     c = pick("Close", "Adj Close", "Adj_Close", "AdjClose")
-    v = pick("Volume")
+    v = pick("Volue")
 
     missing = [name for name, colname in (("Open", o), ("High", h), ("Low", l),
                                           ("Close/AdjClose", c), ("Volume", v)) if colname is None]
