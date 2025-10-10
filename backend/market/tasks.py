@@ -303,7 +303,7 @@ def train_model(symbol: str = "AAPL", test_days: int = 60):
     )
     return f"trained {symbol}: rows={len(df)}, test_days={test_days}, acc={acc:.3f}, auc={(auc if auc is not None else 'n/a')}, saved={path}"
 
-########
+#######
 # ---------------------------
 # Helper for latest model
 # ---------------------------
