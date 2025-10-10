@@ -302,8 +302,6 @@ def train_model(symbol: str = "AAPL", test_days: int = 60):
         symbol, acc, f"{auc:.3f}" if auc is not None else "n/a", path
     )
     return f"trained {symbol}: rows={len(df)}, test_days={test_days}, acc={acc:.3f}, auc={(auc if auc is not None else 'n/a')}, saved={path}"
-
-#
 # ---------------------------
 # Helper for latest model
 # ---------------------------
