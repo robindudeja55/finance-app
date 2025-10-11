@@ -277,11 +277,7 @@ def train_model(symbol: str = "AAPL", test_days: int = 60):
     Xtr, ytr = X.iloc[:split], y.iloc[:split]
     Xte, yte = X.iloc[split:], y.iloc[split:]
 
-    pipe = Pipeline([
-        ("scaler", StandardScaler()),
-        ("clf", LogisticRegression(max_iter=1000, n_jobs=1))
-    ])
-    pipe.fit(Xtr, ytr)
+
 
     acc = accuracy_score(yte, pipe.predict(Xte))
     try:
