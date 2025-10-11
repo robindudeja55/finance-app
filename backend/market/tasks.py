@@ -277,25 +277,7 @@ def train_model(symbol: str = "AAPL", test_days: int = 60):
     Xtr, ytr = X.iloc[:split], y.iloc[:split]
     Xte, yte = X.iloc[split:], y.iloc[split:]
 
-    pipe = Pipeline([
-        ("scaler", StandardScaler()),
-        ("clf", LogisticRegression(max_iter=1000, n_jobs=1))
-    ])
-    pipe.fit(Xtr, ytr)
 
-    acc = accuracy_score(yte, pipe.predict(Xte))
-    try:
-        auc = roc_auc_score(yte, pipe.predict_proba(Xte)[:, 1])
-    except Exception:
-        auc = None
-
-    model_dir = os.environ.get("MODEL_DIR", "artifacts")
-    out_dir = os.path.join(model_dir, symbol)
-    os.makedirs(out_dir, exist_ok=True)
-
-    ts = dt.datetime.utcnow().strftime("%Y%m%d%H%M%S")
-    path = os.path.join(out_dir, f"logreg_{ts}.pkl")
-    joblib.dump({"model": pipe, "features": feats, "trained_at": ts}, path)
 
     logger.info(
         "train_model.done symbol=%s acc=%.3f auc=%s path=%s",
