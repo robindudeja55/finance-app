@@ -289,9 +289,7 @@ def train_model(symbol: str = "AAPL", test_days: int = 60):
     except Exception:
         auc = None
 
-    model_dir = os.environ.get("MODEL_DIR", "artifacts")
-    out_dir = os.path.join(model_dir, symbol)
-    os.makedirs(out_dir, exist_ok=True)
+ 
 
     ts = dt.datetime.utcnow().strftime("%Y%m%d%H%M%S")
     path = os.path.join(out_dir, f"logreg_{ts}.pkl")
