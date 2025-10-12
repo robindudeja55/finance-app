@@ -241,7 +241,7 @@ def build_features(symbol: str = "AAPL", days: int = 730):
 
     logger.info("build_features.done symbol=%s rows=%s", symbol, inserted)
     return f"{symbol}: upserted {inserted} feature rows"
-########3
+#######
 # ---------------------------
 # Task 3: Train Model
 # ---------------------------
