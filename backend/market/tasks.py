@@ -21,7 +21,6 @@ from .models import (
     FeatureDaily,
     Prediction
 )
-
 # Optional import of NewsArticle
 try:
     from .models import NewsArticle
